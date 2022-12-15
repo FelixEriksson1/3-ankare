@@ -7,22 +7,28 @@ class spelare_info():
     def print_info(self):
 
         print(
-            f"Ditt namn {self.name}. Dinna pengar {self.money}. Din level {self.level}.")
+            f"Your name {self.name}. Your money {self.money}. Your level {self.level}.")
 
     def chek_money(self):
-        print(f"Du har {self.money} dollar.")
+        print(f"You have {self.money} dollar.")
 
 
-namn = input("Vad är ditt namn? ")
-print("Hej", namn)
+namn = input("What's your username? ")
+print("Welcome", namn)
 
 player = spelare_info(namn, 400, 1)
 
 
 kasinot = int(input(
-    "1.Vill du gå in i kasinot tryk 1. 2. Vill du avsluta tryck 2. -->"))
+    "Do you wish to enter the casino? -->(yes/no)"))
 if kasinot == 1:
-    print("välkomen till kasinot!")
+    print("Welcome to the casino!")
     player.chek_money()
 else:
-    print("Tack för att du spela.")
+    print("Thanks for playing.")
+
+Dollar = float(input("Ange antalet dollar du vill växla till kasinomarker: "))
+
+amount_in_casino = Dollar * 1
+
+print(f"{Dollar} Dollar is converted {amount_in_casino} casinochips .")
