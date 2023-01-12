@@ -18,14 +18,18 @@ print("Welcome", namn)
 
 player = spelare_info(namn, 400, 1)
 
-
-kasinot = int(input(
-    "Do you wish to enter the casino? -->(yes/no)"))
-if kasinot == 1:
-    print("Welcome to the casino!")
-    player.chek_money()
-else:
-    print("Thanks for playing.")
+while True:
+    kasinot = (input(
+        "Do you wish to enter the casino? -->1.Yes 2. No "))
+    if kasinot == "1":
+        print("Welcome to the casino!")
+        player.chek_money()
+        break
+    elif kasinot == "2":
+        print("Thanks for playing.")
+        break
+    else:
+        print("You awnser by typing 1 or 2")
 
 Dollar = float(input("Ange antalet dollar du vill växla till kasinomarker: "))
 
