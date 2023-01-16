@@ -11,4 +11,4 @@ def print_slow(str):
 
 
 time.sleep(2)
-print_slow("viktor är en horunge")
+print_slow("viktor är en cool kille")
