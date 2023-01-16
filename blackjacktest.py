@@ -1,44 +1,98 @@
 import random
-
-# Listan med kortleken
-kortlek = ["2", "3", "4", "5", "6", "7", "8", "9", "10" 'J', 'Q', 'K', 'A']
-Kläddakort = ["Knäckt", "Dam", "Kung", "ess"]
-
-# Funktionen för att ge spelaren ett kort
+import sys
+import time
 
 
-def ge_kort():
-    return random.choice(kortlek)
+def print_slow(str):
+    for letter in str:
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+        time.sleep(0.07)
 
 
-# Spelarens poäng
-poang = 0
+# create a deck of cards
+deck = []
+suits = ['hearts', 'diamonds', 'clubs', 'spades']
+ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+for suit in suits:
+    for rank in ranks:
+        card = rank + ' of ' + suit
+        deck.append(card)
 
-# Ge spelaren ett kort och lägg till poängen
-poang += ge_kort()
+# shuffle the deck
+random.shuffle(deck)
 
-# Ge spelaren ytterligare ett kort
-poang += ge_kort()
+# deal two cards to the player and the dealer
+player_hand = [deck.pop(), deck.pop()]
+dealer_hand = [deck.pop(), deck.pop()]
 
-# Skriv ut spelarens poäng
-print("Du har " + str(poang) + " poäng.")
+# calculate the player's and dealer's scores
+player_score = 0
+for card in player_hand:
+    rank = card[0]
+    if rank == 'J' or rank == 'Q' or rank == 'K':
+        player_score += 10
+    elif rank == 'A':
+        player_score += 11
+    else:
+        player_score += int(rank)
 
-# Be spelaren om ett val
-val = input("Vill du dra ett till kort? (j/n) ")
+dealer_score = 0
+for card in dealer_hand:
+    rank = card[0]
+    if rank == 'J' or rank == 'Q' or rank == 'K':
+        dealer_score += 10
+    elif rank == 'A':
+        dealer_score += 11
+    else:
+        dealer_score += int(rank)
 
-# Så länge spelaren väljer att dra ett till kort
-while val.lower() == "j":
-    # Ge spelaren ett till kort och lägg till poängen
-    poang += ge_kort()
-
-    # Skriv ut spelarens poäng
-    print("Du har " + str(poang) + " poäng.")
-
-    # Be spelaren om ett val igen
-    val = input("Vill du dra ett till kort? (j/n) ")
-
-# Kontrollera om spelaren har gått över 21 poäng
-if poang > 21:
-    print("Du har förlorat!")
+# check for blackjack
+if player_score == 21:
+    print("Player has blackjack and wins!")
+elif dealer_score == 21:
+    print("Dealer has blackjack and wins!")
 else:
-    print("Du har vunnit!")
+    # player's turn
+    while True:
+        print("Players Hand", player_hand)
+        print(player_score)
+        time.sleep(2)
+        choice = input("Do you want to hit or stand? ")
+        if choice == 'hit':
+            player_hand.append(deck.pop())
+            player_score = 0
+            for card in player_hand:
+                rank = card[0]
+                if rank == 'J' or rank == 'Q' or rank == 'K':
+                    player_score += 10
+                elif rank == 'A':
+                    player_score += 11
+                else:
+                    player_score += int(rank)
+            time.sleep(2)
+            print_slow("Player's hand:", player_hand)
+            print_slow("Player's score:", player_score)
+            if player_score > 21:
+                print("Player busts and loses.")
+                break
+        elif choice == 'stand':
+            break
+        else:
+            print("Invalid choice. Please enter hit or stand.")
+
+    # dealer's turn
+    if player_score <= 21:
+        while dealer_score < 17:
+            dealer_hand.append(deck.pop())
+            dealer_score = 0
+            for card in dealer_hand:
+                rank = card[0]
+                if rank == 'J' or rank == 'Q' or rank == 'K':
+                    dealer_score += 10
+                elif rank == 'A':
+                    dealer_score += 11
+                else:
+                    dealer_score += int(rank)
+            print("Dealer's hand:", dealer_hand)
+            print("Dealer's score:", dealer_score)
