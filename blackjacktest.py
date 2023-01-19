@@ -12,7 +12,7 @@ def print_slow(str):
 
 # create a deck of cards
 deck = []
-suits = ['hearts', 'diamonds', 'clubs', 'spades']
+suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
 ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 for suit in suits:
     for rank in ranks:
@@ -30,7 +30,7 @@ dealer_hand = [deck.pop(), deck.pop()]
 player_score = 0
 for card in player_hand:
     rank = card[0]
-    if rank == 'J' or rank == 'Q' or rank == 'K':
+    if rank == 'J' or rank == 'Q' or rank == 'K' or rank == '10':
         player_score += 10
     elif rank == 'A':
         player_score += 11
@@ -40,7 +40,7 @@ for card in player_hand:
 dealer_score = 0
 for card in dealer_hand:
     rank = card[0]
-    if rank == 'J' or rank == 'Q' or rank == 'K':
+    if rank == 'J' or rank == 'Q' or rank == 'K' or rank == '10':
         dealer_score += 10
     elif rank == 'A':
         dealer_score += 11
@@ -57,7 +57,6 @@ else:
     while True:
         print("Players Hand", player_hand)
         print(player_score)
-        time.sleep(2)
         choice = input("Do you want to hit or stand? ")
         if choice == 'hit':
             player_hand.append(deck.pop())
@@ -70,9 +69,8 @@ else:
                     player_score += 11
                 else:
                     player_score += int(rank)
-            time.sleep(2)
-            print_slow("Player's hand:", player_hand)
-            print_slow("Player's score:", player_score)
+            print("Player's hand:", player_hand)
+            print("Player's score:", player_score)
             if player_score > 21:
                 print("Player busts and loses.")
                 break
@@ -96,3 +94,9 @@ else:
                     dealer_score += int(rank)
             print("Dealer's hand:", dealer_hand)
             print("Dealer's score:", dealer_score)
+
+
+if player_score > dealer_score or dealer_score > 21:
+    print("Player Wins")
+else:
+    print("Dealer Wins")
