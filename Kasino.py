@@ -23,10 +23,10 @@ class spelare_info():
         print("")
 
 
-namn = input("Enter Your Username: ")
-print("Welcome", namn)
+name = input("Enter Your Username: ")
+print("Welcome", name)
 
-player = spelare_info(namn, 400,)
+player = spelare_info(name, 400,)
 
 
 def welocome():
